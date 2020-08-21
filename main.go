@@ -102,7 +102,8 @@ func main() {
 	}
 }
 func GetImage(name string) string {
-	newImage := strings.Split(name, "/")[2]
+	imageArry := strings.Split(name, "/")
+	newImage := imageArry[len(imageArry)-1]
 	newFullImage := registry + "/" + repository + "/" + newImage
 	return newFullImage
 }
