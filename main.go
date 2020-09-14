@@ -99,6 +99,7 @@ func main() {
 			log.Fatal(err)
 		}
 		fmt.Printf("%s\n", stdoutStderr)
+		Inspect(newFullImage)
 	}
 }
 func GetImage(name string) string {
@@ -113,4 +114,53 @@ func GetFile(url string) string {
 	file := FileArry[len(FileArry)-1]
 	// fmt.Println(file)
 	return file
+}
+
+func Inspect(item string) {
+	fmt.Println(
+		"docker pull item",
+		// "docker inspect", item, "| jq .[0].GraphDriver.Data.UpperDir",
+	)
+	fmt.Println(
+		// "docker pull item",
+		"docker inspect", item, "| jq .[0].GraphDriver.Data.UpperDir",
+	)
+
+}
+
+func checkJq() {
+	cmd := exec.Command("which", "jq")
+	stdoutStderr, err := cmd.CombinedOutput()
+	if err != nil {
+		log.Fatal(err)
+		InstallPackage("jq")
+	}
+	fmt.Printf("%s\n", stdoutStderr)
+}
+
+func InstallPackage(name string) {
+	fmt.Println(runtime.GOOS)
+	fmt.Println(runtime.GOARCH)
+	if path, err := exec.LookPath("yum"); err == nil {
+		fmt.Println(path)
+		cmd := exec.Command("yum", "install", "-y", name)
+		stdoutStderr, err := cmd.CombinedOutput()
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Printf("%s\n", stdoutStderr)
+
+	} else if path, err := exec.LookPath("apt"); err == nil {
+		fmt.Println(path)
+		cmd := exec.Command("apt", "update")
+		cmd.CombinedOutput()
+		cmd = exec.Command("apt", "install", "-y", name)
+		stdoutStderr, err := cmd.CombinedOutput()
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Printf("%s\n", stdoutStderr)
+	} else {
+		fmt.Println("not support operation system")
+	}
 }

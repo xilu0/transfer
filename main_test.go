@@ -9,6 +9,10 @@ import (
 // 	fmt.Println(file)
 // }
 
-func TestWriteDockerfile(t *testing.T) {
-	WriteDockerfile()
+func TestInspec(t *testing.T) {
+	Inspect("heishui/kube-apiserver:v1.19.0")
+}
+
+func TestInstallPackage(t *testing.T) {
+	InstallPackage("jq")
 }
