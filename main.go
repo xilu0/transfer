@@ -117,8 +117,9 @@ func GetFile(url string) string {
 }
 
 func Inspect(item string) {
+	checkJq()
 	fmt.Println(
-		"docker pull item",
+		"docker pull", item,
 		// "docker inspect", item, "| jq .[0].GraphDriver.Data.UpperDir",
 	)
 	fmt.Println(
