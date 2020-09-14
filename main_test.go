@@ -16,3 +16,16 @@ func TestInspec(t *testing.T) {
 func TestInstallPackage(t *testing.T) {
 	InstallPackage("jq")
 }
+
+func TestCheckJq(t *testing.T) {
+	tests := []struct {
+		name string
+	}{
+		{name: "first checkjq"},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			CheckJq()
+		})
+	}
+}

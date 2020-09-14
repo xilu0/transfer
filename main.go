@@ -102,6 +102,8 @@ func main() {
 		Inspect(newFullImage)
 	}
 }
+
+// GetImage ... comment.
 func GetImage(name string) string {
 	imageArry := strings.Split(name, "/")
 	newImage := imageArry[len(imageArry)-1]
@@ -109,6 +111,7 @@ func GetImage(name string) string {
 	return newFullImage
 }
 
+// GetFile ... fun.
 func GetFile(url string) string {
 	FileArry := strings.Split(url, "/")
 	file := FileArry[len(FileArry)-1]
@@ -116,8 +119,9 @@ func GetFile(url string) string {
 	return file
 }
 
+// Inspect comm.
 func Inspect(item string) {
-	checkJq()
+	CheckJq()
 	fmt.Println(
 		"docker pull", item,
 		// "docker inspect", item, "| jq .[0].GraphDriver.Data.UpperDir",
@@ -129,16 +133,18 @@ func Inspect(item string) {
 
 }
 
-func checkJq() {
+// CheckJq command.
+func CheckJq() {
 	cmd := exec.Command("which", "jq")
 	stdoutStderr, err := cmd.CombinedOutput()
 	if err != nil {
 		log.Fatal(err)
-		InstallPackage("jq")
+		// InstallPackage("jq")
 	}
 	fmt.Printf("%s\n", stdoutStderr)
 }
 
+// InstallPackage in linux.
 func InstallPackage(name string) {
 	fmt.Println(runtime.GOOS)
 	fmt.Println(runtime.GOARCH)
